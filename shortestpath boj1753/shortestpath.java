@@ -10,16 +10,16 @@ class Node implements Comparable<Node> {
     }
 
     @Override
-    public int compareTo(Node other) {
-        return Integer.compare(this.distance, other.distance);
+    public int compareTo(Node argO) {
+        return Integer.compare(this.distance, argO.distance);
     }
 }
 
 public class shortestpath {
     private static final int INF = Integer.MAX_VALUE;
 
-    public static void dijkstra(List<List<Node>> graph, int start) {
-        int V = graph.size();
+    public static void Dijkstra(List<List<Node>> list, int start) {
+        int V = list.size();
         int[] distance = new int[V];
         Arrays.fill(distance, INF);
         distance[start] = 0;
@@ -35,7 +35,7 @@ public class shortestpath {
             if (dist > distance[vertex])
                 continue;
 
-            for (Node neighbor : graph.get(vertex)) {
+            for (Node neighbor : list.get(vertex)) {
                 int newDist = dist + neighbor.distance;
                 if (newDist < distance[neighbor.vertex]) {
                     distance[neighbor.vertex] = newDist;
@@ -44,7 +44,6 @@ public class shortestpath {
             }
         }
 
-        // 결과 출력
         for (int i = 1; i < V; i++) {
             if (distance[i] == INF)
                 System.out.println("INF");
@@ -60,18 +59,18 @@ public class shortestpath {
         int E = scanner.nextInt();
         int start = scanner.nextInt();
 
-        List<List<Node>> graph = new ArrayList<>();
+        List<List<Node>> list = new ArrayList<>();
         for (int i = 0; i <= V; i++)
-            graph.add(new ArrayList<>());
+            list.add(new ArrayList<>());
 
         for (int i = 0; i < E; i++) {
             int u = scanner.nextInt();
             int v = scanner.nextInt();
             int w = scanner.nextInt();
-            graph.get(u).add(new Node(v, w));
+            list.get(u).add(new Node(v, w));
         }
 
-        dijkstra(graph, start);
+        Dijkstra(list, start);
 
         scanner.close();
     }
